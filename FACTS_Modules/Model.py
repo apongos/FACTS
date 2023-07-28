@@ -8,6 +8,7 @@
 
 from FACTS_Modules.TaskSFCLaw import TaskSFCLaw
 from FACTS_Modules.AcousticSynthesis import AcousticSynthesis
+import pdb
 
 # Model factory reads which architecture is specified in the
 # config file
@@ -178,6 +179,7 @@ class Hierarchical_xdotdot(Hierarchical_Model):
         return task_state_estimator
     
     def run_one_timestep(self, prev_x_tilde, prev_a_tilde, prev_a_actual, GestScore, ART, ms_frm,i_frm, trial, catch):
+        #pdb.set_trace()
         xdotdot, PROMACT = self.task_sfc_law.run(prev_x_tilde,GestScore,i_frm)
         adotdot = self.artic_sfc_law.run(xdotdot, prev_a_tilde,ART,i_frm,PROMACT,ms_frm)
         a_actual = self.artic_kinematics.run(prev_a_actual,adotdot,ms_frm)
@@ -187,3 +189,7 @@ class Hierarchical_xdotdot(Hierarchical_Model):
         a_tilde, a_hat = self.artic_state_estimator.run(prev_a_tilde,adotdot,a_noise,ms_frm,i_frm,catch)
         x_tilde, y_hat = self.task_state_estimator.run(prev_a_tilde,formants_noise,i_frm,catch,xdotdot)
         return x_tilde, a_tilde, a_actual, formants, formants_noise, adotdot, y_hat
+
+
+
+

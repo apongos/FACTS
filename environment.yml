@@ -11,7 +11,7 @@ dependencies:
   - spyder=4.1.5
   - seaborn=0.10.1
   - jupyter=1.0.0
-  - tensorflow=2.1.0
+  #- tensorflow=2.1.0
   - hyperas=0.4.1
   - dataclasses=0.7
   - pip=20.3.3

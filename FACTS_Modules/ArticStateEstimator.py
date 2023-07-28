@@ -109,8 +109,8 @@ class ASE_UKF_Classic(ASE_UKF,ASEClassicInterface):
         self.Aud_model.final_lambda =0.99995
         # compute R (measurement noise covariance matrix)
         if self.feedbackType == 'full':
-            self.R = np.diag(np.append(R_Auditory,R_Somato))
-        elif self.feedbackType == 'audOnly':
+            self.R = np.diag(np.append(R_Auditory * 0.8 ,R_Somato))
+        elif self.feedbackType == 'audOnly': 
             self.R = np.diag(R_Auditory)
         elif self.feedbackType == 'somatOnly':
             self.R = np.diag(R_Somato)

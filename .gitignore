@@ -1,4 +1,15 @@
 *__pycache__/
 *.ipynb_checkpoints
 *.bak
+*.DS_Store
 Simulation/*
+VocalTractModels/*
+Swig/*
+
+./SBI_on_FACTS2_parameter_sweep_gaussian_prior.ipynb
+./SBI_on_FACTS2.ipynb
+./Test_auditory_somatosensory_tradeoff.ipynb
+./SBI_on_FACTS.ipynb
+
+sbi-logs/
+

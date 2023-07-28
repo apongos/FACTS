@@ -23,11 +23,13 @@ from FACTS_Modules.Model import model_factory
 from FACTS_Modules.util import string2dtype_array
 from FACTS_Modules.TADA import MakeGestScore
 from facts_visualizations import single_trial_plots, multi_trial_plots
+import pdb
 
 def main(argv):
     config = configparser.ConfigParser()
     config.read(argv[0])
     model = model_factory(config)
+    #pdb.set_trace()
     if 'MultTrials' in config.sections(): 
         ntrials = int(config['MultTrials']['ntrials'])
         target_noise= float(config['MultTrials']['Target_noise'])
@@ -59,7 +61,7 @@ def main(argv):
 
     #Run FACTS for each trial
     for trial in range(ntrials):
-        print("trial:", trial)
+        #print("trial:", trial)
         #Gestural score (task)
         GestScore, ART, ms_frm, last_frm = MakeGestScore(argv[1],target_noise)         #this is similar with MakeGest in the matlab version
 
@@ -102,21 +104,24 @@ def main(argv):
             single_trial_plots(condition,trial,a_record,a_tilde_record,formant_record,shift_record,x_record,argv)
         save = True
         if save:
-            write_path = 'Simulation/'
-            datafile_name = 'ClassicArtUp_audOnly'
-            #np.savetxt(write_path + 'formant_'+ datafile_name + '_' + str(trial) + '.csv',formant_record[trial],delimiter=',')
-            #np.savetxt(write_path + 'predictformant_'+ datafile_name + '_' + str(trial) + '.csv',predict_formant_record[trial],delimiter=',')
-            #np.savetxt(write_path + 'shiftformant_'+ datafile_name + '_' + str(trial) + '.csv',shift_record[trial],delimiter=',')
-            #np.savetxt(write_path + 'articact_'+ datafile_name + '_' + str(trial) + '.csv',a_record[trial],delimiter=',')            
-            #np.savetxt(write_path + 'articest_'+ datafile_name + '_' + str(trial) + '.csv',a_tilde_record[trial],delimiter=',')            
-            #np.savetxt(write_path + 'task_'+ datafile_name + '_' + str(trial) + '.csv',x_record[trial],delimiter=',') 
-            #np.savetxt(write_path + 'adotdot_'+ datafile_name + '_' + str(trial) + '.csv',a_dotdot_record[trial],delimiter=',')
-    if ntrials > 1 and plot:
+            write_path = 'Simulation/Pert/DesignA/'
+            datafile_name = ''
+            np.savetxt(write_path + 'formant_'+ datafile_name + '_' + str(trial) + '.csv',formant_record[trial],delimiter=',')
+            np.savetxt(write_path + 'predictformant_'+ datafile_name + '_' + str(trial) + '.csv',predict_formant_record[trial],delimiter=',')
+            np.savetxt(write_path + 'shiftformant_'+ datafile_name + '_' + str(trial) + '.csv',shift_record[trial],delimiter=',')
+            np.savetxt(write_path + 'articact_'+ datafile_name + '_' + str(trial) + '.csv',a_record[trial],delimiter=',')            
+            np.savetxt(write_path + 'articest_'+ datafile_name + '_' + str(trial) + '.csv',a_tilde_record[trial],delimiter=',')            
+            np.savetxt(write_path + 'task_'+ datafile_name + '_' + str(trial) + '.csv',x_record[trial],delimiter=',') 
+            np.savetxt(write_path + 'adotdot_'+ datafile_name + '_' + str(trial) + '.csv',a_dotdot_record[trial],delimiter=',')
+    if True: #ntrials > 1 and plot:
         multi_trial_plots(formant_record, shift_record)
     plt.show()
 
 if __name__ == "__main__":
     #main(sys.argv[1:])f
+    # Sri class project
+    main(['DesignA_pert.ini','GesturalScores/KimetalOnlinepert2.G']) #datafile_name: ClassicArtUp
+
     #Fig 3
     #main(['DesignA.ini','GesturalScores/KimetalAdapt.G']) #datafile_name: ClassicArtUp
     #main(['DesignB.ini','GesturalScores/KimetalAdapt.G']) #datafile_name: ClassicAudUp
@@ -168,5 +173,5 @@ if __name__ == "__main__":
 
     
     #Review response
-    main(['DesignA_audOnly.ini','GesturalScores/KimetalAdapt.G']) #datafile_name: ClassicArtUp_audOnly
+    # main(['DesignA_audOnly.ini','GesturalScores/KimetalAdapt.G']) #datafile_name: ClassicArtUp_audOnly
    
